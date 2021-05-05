@@ -6,6 +6,8 @@ import pickle
 print("Test")
 print(os.getcwd())
 path = os.getcwd()
+print()
+
 
 with open('Models/Pickle_LR_Model.pkl', 'rb') as f:
     logistic = pickle.load(f)
@@ -22,7 +24,6 @@ def get_predictions(age,sex,chest_pain_type,resting_bp,cholesterol,fasting_blood
     if req_model == 'Logistic':
         #print(req_model)
         return logistic.predict(vals)[0]
-
     elif req_model == 'SVM':
         #print(req_model)
         return svm_model.predict(vals)[0]
@@ -56,9 +57,8 @@ def my_form_post():
         thalassemia = request.form['thal']
         req_model = request.form['req_model']
 
-        print(age,sex)
 
-        target = get_predictions(price, Tax, Driver_Age, Licence_Length_Years, req_model)
+        target = get_predictions(age, sex, chest_pain_type, resting_bp, cholesterol,fasting_bloodSugar,resting_ecg,max_heartrate,exercise_induced_angina,oldpeak, slope,num_vessels,thalassemia,req_model)
 
         if target==1:
             string_to_display = 'High Likely chance of getting heart disease'
